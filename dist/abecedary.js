@@ -183,10 +183,13 @@ module.exports = function Runner() {
     .then(function(modules) {
       var options = modules[0],
           runner = modules[1];
-      return runner(options, code, globals)
+      return runner(options, code, globals);
     })
     .then(tearDown)
-    .catch(tearDown);
+    .catch(function(error) {
+      tearDown();
+      rethrow(error);
+    });
   };
 };
 },{}],4:[function(require,module,exports){

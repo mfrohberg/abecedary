@@ -272,23 +272,23 @@ function checkErrors(iframeUrl, iframeContent, setup, teardown, options) {
     var code = "4";
     var tests = "if (code != 5) throw new Error('The code was not 5');";
     sandbox.once('error', function(error) {
-      assert.equal(1, error.position.line);
+      assert.equal(1, error.line);
       switch(detectStackTraceStyle()) {
         case 'safari':
           assert.equal("Error: The code was not 5", error.message);
-          assert.equal(53, error.position.ch);
+          assert.equal(53, error.column);
           break;
         case 'ie':
-          assert.equal(16, error.position.ch);
+          assert.equal(16, error.column);
           break;
         case 'firefox':
           assert.equal("Error: The code was not 5", error.message);
-          assert.equal(21, error.position.ch);
+          assert.equal(21, error.column);
           break;
         default:
           assert.equal("Uncaught Error: The code was not 5", error.message);
           assert.equal("Error", error.name);
-          assert.equal(16, error.position.ch);
+          assert.equal(16, error.column);
       }
       done();
     });
@@ -308,20 +308,19 @@ function checkErrors(iframeUrl, iframeContent, setup, teardown, options) {
       assert(report.failures.length == 1);
       assert(report.failures[0].err);
       assert(report.failures[0].err.message);
-      assert(report.failures[0].err.position);
-      assert.equal(3, report.failures[0].err.position.line);
+      assert.equal(3, report.failures[0].err.line);
       switch(detectStackTraceStyle()) {
         case 'chrome':
           assert.equal("assert.equals is not a function", report.failures[0].err.message);
-          assert.equal(10, report.failures[0].err.position.ch);
+          assert.equal(10, report.failures[0].err.column);
           break;
         case 'firefox':
           assert.equal("assert.equals is not a function", report.failures[0].err.message);
-          assert.equal(3, report.failures[0].err.position.ch);
+          assert.equal(3, report.failures[0].err.column);
           break;
         case 'safari':
           assert.equal("undefined is not a function (evaluating \'assert.equals(code, 4)\')", report.failures[0].err.message);
-          assert.equal(16, report.failures[0].err.position.ch);
+          assert.equal(16, report.failures[0].err.column);
           break;
       }
       done();
@@ -345,20 +344,19 @@ function checkErrors(iframeUrl, iframeContent, setup, teardown, options) {
       assert(report.failures.length == 1);
       assert(report.failures[0].err);
       assert(report.failures[0].err.message);
-      assert(report.failures[0].err.position);
-      assert.equal(3, report.failures[0].err.position.line);
+      assert.equal(3, report.failures[0].err.line);
       switch(detectStackTraceStyle()) {
         case 'chrome':
           assert.equal("assert.equals is not a function", report.failures[0].err.message);
-          assert.equal(10, report.failures[0].err.position.ch);
+          assert.equal(10, report.failures[0].err.column);
           break;
         case 'firefox':
           assert.equal("assert.equals is not a function", report.failures[0].err.message);
-          assert.equal(3, report.failures[0].err.position.ch);
+          assert.equal(3, report.failures[0].err.column);
           break;
         case 'safari':
           assert.equal("undefined is not a function (evaluating \'assert.equals(code, 4)\')", report.failures[0].err.message);
-          assert.equal(16, report.failures[0].err.position.ch);
+          assert.equal(16, report.failures[0].err.column);
           break;
       }
       done();
